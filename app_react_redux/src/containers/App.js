@@ -1,28 +1,38 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import '../assets/css/App.css';
-import { simpleAction } from '../actions/simpleActions';
+import { displayButtonText, displayTextarea, hideButtonText } from '../actions/simpleActions';
 
 class App extends Component{
 
-    simpleAction = (event) => {
-        this.props.simpleAction();
+    handleChange = (event) => {
+        console.log(this.props);
+        this.props.displayTextarea(event.target.value);
+    }
+
+    displayButtonText = () => {
+        this.props.displayButtonText();
+    }
+
+    hideButtonText = () => {
+        this.props.hideButtonText();
     }
 
     render(){
+        console.log(this.props);
         return (
             <div className="App">
                 <header className="App-header">
                     Techno watch
                 </header>
 
-                <pre>
-                {
-                JSON.stringify(this.props)
-                }
-                </pre>
+                <p>{this.props.simpleReducer.result}</p>
 
-                <button onClick={this.simpleAction}>Test redux action</button>
+                <button onClick={this.displayButtonText}>Display Text</button>
+                <button onClick={this.hideButtonText}>Hide Text</button>
+                <br/>
+                <textarea onChange={this.handleChange} value={this.props.text}/>
+                <p>{this.props.simpleReducer.input}</p>
             </div>
         );
     }
@@ -33,7 +43,9 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
- simpleAction: () => dispatch(simpleAction())
+    displayButtonText: () => dispatch(displayButtonText()),
+    hideButtonText: () => dispatch(hideButtonText()),
+    displayTextarea: (text) => dispatch(displayTextarea(text))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
