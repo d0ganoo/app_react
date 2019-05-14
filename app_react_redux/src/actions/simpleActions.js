@@ -1,6 +1,20 @@
-export const simpleAction = () => dispatch => {
+export const displayButtonText = () => dispatch => {
  dispatch({
-  type: 'SIMPLE_ACTION',
-  payload: 'result_of_simple_action'
+  type: 'DISPLAY_TEXT',
+  payload: 'Coucou'
+ })
+}
+
+export const displayTextarea = (input) => dispatch => {
+  dispatch({
+      type: 'CONVERT',
+      input: input
+  })
+}
+
+export const hideButtonText = () => dispatch => {
+ dispatch({
+  type: 'DISPLAY_TEXT',
+  payload: ''
  })
 }
